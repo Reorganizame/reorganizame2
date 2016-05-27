@@ -11,10 +11,10 @@
         <h:form>
             Alias: <h:inputText value="#{loginBean.alias}" /> <br />
             Contrase&ntilde;a: <h:inputSecret value="#{loginBean.contrasena}" /> <br />
-            <h:commandButton value="Enviar" action="#{loginBean.doLogin()}" />
+            <h:commandButton value="Enviar" action="#{loginBean.doLogin()}" /> <br />
+            <h:commandLink value="Registro" action="#{loginBean.doEnlaceRegistro()}" /> &nbsp;
+            <h:commandLink value="Recuperar password" action="#{loginBean.doEnlaceRecuperarPassword()}" />
         </h:form>
-        <h:link outcome="registro" value="Registro" /> &nbsp;
-        <h:link outcome="recuperarPassword" value="Recuperar password" />
     </h:body>
 </html>
 

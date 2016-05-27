@@ -59,14 +59,32 @@ public class LoginBean implements Serializable {
     public String doLogin(){
         String paginaReturn;
         this.usuario = this.usuarioFacade.findUsuarioByAlias(this.alias);
-        if (usuario!=null && usuario.getContrasena().equals(Util.hash(this.contrasena))){
-            this.mensajeLogin = "";
+        if (this.usuario!=null && this.usuario.getContrasena().equals(Util.hash(this.contrasena))){
+            this.limpiar();
             paginaReturn = "listaProyectos";
         } else {
+            this.alias = null;
+            this.contrasena = null;
             this.mensajeLogin = "Alias o contraseña incorrecto";
             paginaReturn = "login";
         }
         return paginaReturn;
+    }
+    
+    private void limpiar(){
+        this.alias = null;
+        this.contrasena = null;
+        this.mensajeLogin = null;
+    }
+    
+    public String doEnlaceRegistro(){
+        this.limpiar();
+        return "registro";
+    }
+    
+    public String doEnlaceRecuperarPassword(){
+        this.limpiar();
+        return "recuperarPassword";
     }
     
 }
