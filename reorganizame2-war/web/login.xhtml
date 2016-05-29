@@ -7,13 +7,13 @@
     </h:head>
     <h:body>
         <h1> Login </h1>
-        #{loginBean.mensajeLogin}
+        #{usuarioBean.mensajeLogin}
         <h:form>
-            Alias: <h:inputText value="#{loginBean.alias}" /> <br />
-            Contrase&ntilde;a: <h:inputSecret value="#{loginBean.contrasena}" /> <br />
-            <h:commandButton value="Enviar" action="#{loginBean.doLogin()}" /> <br />
-            <h:commandLink value="Registro" action="#{loginBean.doEnlaceRegistro()}" /> &nbsp;
-            <h:commandLink value="Recuperar password" action="#{loginBean.doEnlaceRecuperarPassword()}" />
+            Alias: <h:inputText value="#{usuarioBean.alias}" /> <br />
+            Contrase&ntilde;a: <h:inputSecret value="#{usuarioBean.contrasena}" /> <br />
+            <h:commandButton value="Enviar" action="#{usuarioBean.doLogin()}" /> <br />
+            <h:commandLink value="Registrarse" action="#{usuarioBean.doEnlaceRegistro()}" /> &nbsp;
+            <h:commandLink value="Recuperar contraseña" action="#{usuarioBean.doEnlaceRecuperarPassword()}" />
         </h:form>
     </h:body>
 </html>

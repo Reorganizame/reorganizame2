@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pr="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Reorganizame - Lista de Tareas</title>
+    </h:head>
+    <h:body>
+        <h2>Lista de Tareas </h2>
+        <h:form>
+            <h:dataTable value="#{tareaBean.listaTareas}" var="tarea">
+                <h:column>
+                    <f:facet name="header">
+                        T&iacute;tulo
+                    </f:facet>
+                    #{tarea.nombre}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">   
+                        Descripci&oacute;n
+                    </f:facet>
+                    #{tarea.descripcion}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Fecha de inicio
+                    </f:facet>
+                    <h:outputText pr:type="date" value="#{tarea.fechaInicio}" >
+                        <f:convertDateTime type="date" pattern="yyyy-MM-dd" />
+                    </h:outputText>
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                        Categor&iacute;a
+                    </f:facet>
+                    #{tarea.categoria.nombre}
+                </h:column>
+                <h:column>
+                    <f:facet name="header">    
+                    </f:facet>
+                    <h:commandLink value="Editar" action="#{tareaBean.doEditar(tarea)}" />
+                </h:column>
+                <h:column>
+                    <f:facet name="header">
+                    </f:facet>
+                    <h:commandLink value="Borrar" action="#{tareaBean.doBorrar(tarea)}" />
+                </h:column>
+            </h:dataTable>
+            <h:commandButton value="Volver" action="#{tareaBean.doVolver()}" />
+        </h:form>
+    </h:body>
+</html>
+

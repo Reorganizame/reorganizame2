@@ -21,14 +21,14 @@ import reorganizame.entity.Usuario;
 @Named(value = "registroBean")
 @SessionScoped
 public class RegistroBean implements Serializable {
-    
+
     @Inject
-    private LoginBean loginBean;
-    
+    private UsuarioBean usuarioBean;
+
     @EJB
     private UsuarioFacade usuarioFacade;
-    
-    protected String nombre, apellidos, fechaNacimiento, 
+
+    protected String nombre, apellidos, fechaNacimiento,
             correo, alias, contrasena, contrasena2, mensajeRegistro;
 
     /**
@@ -100,8 +100,8 @@ public class RegistroBean implements Serializable {
     public void setMensajeRegistro(String mensajeRegistro) {
         this.mensajeRegistro = mensajeRegistro;
     }
-    
-    public String doRegistro(){
+
+    public String doRegistro() {
         String paginaReturn;
         this.mensajeRegistro = null;
         if (Util.isValidEmailAddress(this.correo)
@@ -122,15 +122,15 @@ public class RegistroBean implements Serializable {
         }
         if (this.mensajeRegistro == null) {
             this.limpiar();
-            this.loginBean.setMensajeLogin("Usuario registrado con éxito");
+            this.usuarioBean.setMensajeLogin("Usuario registrado con éxito");
             paginaReturn = "login";
         } else {
             paginaReturn = "registro";
         }
         return paginaReturn;
     }
-    
-    private void limpiar(){
+
+    private void limpiar() {
         this.nombre = null;
         this.apellidos = null;
         this.fechaNacimiento = null;
@@ -140,10 +140,10 @@ public class RegistroBean implements Serializable {
         this.contrasena2 = null;
         this.mensajeRegistro = null;
     }
-    
-    public String doEnlaceLogin(){
+
+    public String doEnlaceLogin() {
         this.limpiar();
         return "login";
     }
-    
+
 }
