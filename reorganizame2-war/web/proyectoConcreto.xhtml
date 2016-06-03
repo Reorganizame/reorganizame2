@@ -9,6 +9,7 @@
     <h2>Proyecto: #{usuarioBean.proyectoSeleccionado.nombre} </h2> 
     <h:form>
         <h3> Tareas </h3>
+        #{tareaBean.init()}
         <h:dataTable value="#{tareaBean.listaTareas}" var="tarea">
             <h:column>
                 <f:facet name="header">

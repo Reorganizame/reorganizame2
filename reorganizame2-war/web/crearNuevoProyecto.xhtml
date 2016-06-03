@@ -1,0 +1,17 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Crear nuevo proyecto</title>
+    </h:head>
+    <h:body>
+        <h1>Nuevo proyecto</h1>
+        <h:form>
+            Nombre: <h:inputText value="#{usuarioBean.proyectoSeleccionado.nombre}" /> <br/>
+            Descripción: <h:inputText value="#{usuarioBean.proyectoSeleccionado.descripcion}"/> <br/>
+        <h:commandButton value="Enviar" action="#{proyectoBean.doGuardar()}" />                  
+        </h:form>
+    </h:body>
+</html>
+

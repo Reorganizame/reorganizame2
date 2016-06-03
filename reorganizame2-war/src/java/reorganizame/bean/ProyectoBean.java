@@ -24,7 +24,6 @@ import reorganizame.entity.Proyecto;
  */
 @Named(value = "proyectoBean")
 @Dependent
-
 public class ProyectoBean {
 
     @EJB
@@ -49,7 +48,13 @@ public class ProyectoBean {
     public void init() {
         listaMisProyectos = new ArrayList<>();
         listaProyectos = new ArrayList<>();
-        doCargarProyectos();
+        listaMisProyectos = pFacade.findProyectoByLider(usuarioBean.getUsuarioActual());
+        listaProyectos.clear();
+        List<Miembro> ms;
+        ms = mFacade.findMiembroByUsuario(usuarioBean.getUsuarioActual());
+        for (Miembro m : ms) {
+            listaProyectos.add(m.getIdProyecto());
+        }
     }
 
     public List<Proyecto> getListaMisProyectos() {
@@ -66,17 +71,6 @@ public class ProyectoBean {
 
     public void setListaProyectos(List<Proyecto> listaProyectos) {
         this.listaProyectos = listaProyectos;
-    }
-
-    public String doCargarProyectos() {
-        listaMisProyectos = pFacade.findProyectoByLider(usuarioBean.getUsuarioActual());
-        listaProyectos.clear();
-        List<Miembro> ms;
-        ms = mFacade.findMiembroByUsuario(usuarioBean.getUsuarioActual());
-        for (Miembro m : ms) {
-            listaProyectos.add(m.getIdProyecto());
-        }
-        return "listaProyectos";
     }
 
     public String doNuevo() {
@@ -104,9 +98,7 @@ public class ProyectoBean {
         m.setRol("Director de proyecto");
         mFacade.create(m);
 
-        String retorno = doCargarProyectos(); //carga todos los proyectos de nuevo
-        return retorno;
-
+        return "listaProyectos";
     }
 
     public String doAcceder(Proyecto p) {
