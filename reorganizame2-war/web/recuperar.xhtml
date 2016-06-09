@@ -13,6 +13,9 @@
             Email: <h:inputText value="#{usuarioBean.emailRecuperar}" pt:placeholder="ejemplo@host.com"/> <br />
             <h:commandButton value="Enviar" action="#{usuarioBean.doProcesarRecuperacion()}" />
         </h:form>
+        <h:form>
+            <h:commandLink value="Ir al login" action="#{usuarioBean.doVolverDeRecuperacionPasswordAlLogin()}" />
+        </h:form>
     </h:body>
 </html>
 

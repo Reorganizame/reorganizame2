@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title> Reorganizame - Perfil </title>
+    </h:head>
+    <h:body>
+        <h1> Perfil de usuario </h1>
+        #{usuarioBean.mensajePerfil}
+        <h:form>
+            Nombre: <h:inputText value="#{usuarioBean.usuarioActual.nombre}" /> <br />
+            Apellidos: <h:inputText value="#{usuarioBean.usuarioActual.apellidos}" /> <br />
+            Fecha de nacimiento: <h:inputText pt:type="date" value="#{usuarioBean.usuarioActual.fechaNacimiento}">
+                <f:convertDateTime pattern="yyyy-MM-dd" />
+            </h:inputText> <br />
+            Correo: <h:inputText value="#{usuarioBean.usuarioActual.correo}" /> <br />
+            Alias: <h:inputText value="#{usuarioBean.usuarioActual.alias}" /> <br />
+            <h4> Cambiar contrase&ntilde;a </h4>
+            Contrase&ntilde;a antigua: <h:inputSecret value="#{usuarioBean.contrasenaAntiguaPerfil}" /> <br />
+            Contrase&ntilde;a nueva: <h:inputSecret value="#{usuarioBean.contrasenaNuevaPerfil}" /> <br />
+            Repita la contrase&ntilde;a nueva: <h:inputSecret value="#{usuarioBean.contrasenaNueva2Perfil}" /> <br />
+            <h:commandButton value="Guardar perfil" action="#{usuarioBean.doGuardarPerfil()}" />
+        </h:form>
+        <h:form>
+            <h2> Invitaciones pendientes: </h2>
+            <h:dataTable value="#{usuarioBean.usuarioActual.invitacionCollection}" var="invitacion" border="1">
+                <h:column>
+                    <f:facet name="header"> Proyecto </f:facet>
+                    #{invitacion.idProyecto.nombre}
+                </h:column>
+                <h:column>
+                    <f:facet name="header"> L&iacute;der </f:facet>
+                    #{invitacion.idProyecto.lider.alias}
+                </h:column>
+                <h:column>
+                    <f:facet name="header"> Opciones </f:facet>
+                    <h:commandButton value="Aceptar" action="#{usuarioBean.doAceptarInvitacion(invitacion)}">
+                        <f:ajax render="@form" />
+                    </h:commandButton>
+                    <h:commandButton value="Rechazar" action="#{usuarioBean.doRechazarInvitacion(invitacion)}">
+                        <f:ajax render="@form" />
+                    </h:commandButton>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+        <h:form>
+            <h:commandLink value="Volver a la lista de proyectos" action="#{usuarioBean.doVolverDePerfilAListaProyectos()}" />
+        </h:form>
+    </h:body>
+</html>
+

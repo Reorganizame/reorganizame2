@@ -2,7 +2,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title> Reorganizame - Registro </title>
     </h:head>
@@ -12,7 +13,9 @@
         <h:form>
             Nombre: <h:inputText value="#{registroBean.nombre}" /> <br />
             Apellidos: <h:inputText value="#{registroBean.apellidos}" /> <br />
-            Fecha de nacimiento: <h:inputText pt:type="date" value="#{registroBean.fechaNacimiento}" /> <br />
+            Fecha de nacimiento: <h:inputText pt:type="date" value="#{registroBean.fechaNacimiento}">
+                <f:convertDateTime pattern="yyyy-MM-dd" />
+            </h:inputText> <br />
             Correo: <h:inputText value="#{registroBean.correo}" /> <br />
             Alias: <h:inputText value="#{registroBean.alias}" /> <br />
             Contrase&ntilde;a: <h:inputSecret value="#{registroBean.contrasena}" /> <br />

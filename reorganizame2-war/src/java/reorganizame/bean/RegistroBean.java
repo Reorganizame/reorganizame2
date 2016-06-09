@@ -6,6 +6,7 @@
 package reorganizame.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.ejb.EJB;
 import javax.ejb.EJBException;
 import javax.inject.Named;
@@ -28,8 +29,8 @@ public class RegistroBean implements Serializable {
     @EJB
     private UsuarioFacade usuarioFacade;
 
-    protected String nombre, apellidos, fechaNacimiento,
-            correo, alias, contrasena, contrasena2, mensajeRegistro;
+    protected String nombre, apellidos, correo, alias, contrasena, contrasena2, mensajeRegistro;
+    protected Date fechaNacimiento;
 
     /**
      * Creates a new instance of RegistroBean
@@ -51,14 +52,6 @@ public class RegistroBean implements Serializable {
 
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
-    }
-
-    public String getFechaNacimiento() {
-        return fechaNacimiento;
-    }
-
-    public void setFechaNacimiento(String fechaNacimiento) {
-        this.fechaNacimiento = fechaNacimiento;
     }
 
     public String getCorreo() {
@@ -101,6 +94,14 @@ public class RegistroBean implements Serializable {
         this.mensajeRegistro = mensajeRegistro;
     }
 
+    public Date getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public void setFechaNacimiento(Date fechaNacimiento) {
+        this.fechaNacimiento = fechaNacimiento;
+    }
+
     public String doRegistro() {
         String paginaReturn;
         this.mensajeRegistro = null;
@@ -111,7 +112,7 @@ public class RegistroBean implements Serializable {
             Usuario usuarioParaRegistrar = new Usuario(0, this.correo, this.alias, Util.hash(this.contrasena));
             usuarioParaRegistrar.setNombre(this.nombre);
             usuarioParaRegistrar.setApellidos(this.apellidos);
-            usuarioParaRegistrar.setFechaNacimiento(Util.fechaDesdeString(this.fechaNacimiento));
+            usuarioParaRegistrar.setFechaNacimiento(this.fechaNacimiento);
             try {
                 this.usuarioFacade.create(usuarioParaRegistrar);
             } catch (EJBException ex) {

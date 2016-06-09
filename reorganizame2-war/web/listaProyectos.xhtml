@@ -7,6 +7,10 @@
         <title>Reorganizame - Lista de Proyectos</title>
     </h:head>
     <h:body>
+        <h:form>
+            Hola, <h:commandLink value="#{usuarioBean.usuarioActual.alias}" action="#{usuarioBean.doIrAlPerfil()}" /> &nbsp;
+            <h:commandButton value="Salir" action="#{usuarioBean.doLogout()}" />
+        </h:form>
         <h1>Mis Proyectos</h1>
         <h:form>
             <h:dataTable value="#{proyectoBean.listaMisProyectos}" var="proyecto" >
