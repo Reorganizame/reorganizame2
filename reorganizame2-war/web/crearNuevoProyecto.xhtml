@@ -15,6 +15,9 @@
             Descripción: <h:inputText value="#{usuarioBean.proyectoSeleccionado.descripcion}"/> <br/>
             <h:commandButton value="Enviar" action="#{proyectoBean.doGuardar()}" />                  
         </h:form>
+        <h:form>
+            <h:commandLink value="Volver" action="#{proyectoBean.doVolverDeCrearProyecto()}" />
+        </h:form>
     </h:body>
 </html>
 

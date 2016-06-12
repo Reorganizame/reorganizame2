@@ -130,6 +130,10 @@ public class ProyectoBean implements Serializable {
 
         return "listaProyectos";
     }
+    
+    public String doVolverDeCrearProyecto(){
+        return "listaProyectos";
+    }
 
     public String doAcceder(Proyecto p) {
         usuarioBean.setProyectoSeleccionado(p); //usuario
