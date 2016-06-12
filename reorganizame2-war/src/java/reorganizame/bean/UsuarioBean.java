@@ -8,6 +8,7 @@ package reorganizame.bean;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
 import java.security.SecureRandom;
+import java.util.List;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,6 +51,7 @@ public class UsuarioBean implements Serializable {
         
     protected Usuario usuarioActual;
     protected Proyecto proyectoSeleccionado;
+    protected List<Invitacion> listaInvitaciones;
     protected String alias, contrasena, mensajeLogin, 
             mensajeRecuperar, emailRecuperar, 
             contrasenaAntiguaPerfil, contrasenaNuevaPerfil, contrasenaNueva2Perfil, mensajePerfil, mensajeInvitacion;
@@ -74,6 +76,14 @@ public class UsuarioBean implements Serializable {
 
     public void setProyectoSeleccionado(Proyecto proyectoSeleccionado) {
         this.proyectoSeleccionado = proyectoSeleccionado;
+    }
+
+    public List<Invitacion> getListaInvitaciones() {
+        return listaInvitaciones;
+    }
+
+    public void setListaInvitaciones(List<Invitacion> listaInvitaciones) {
+        this.listaInvitaciones = listaInvitaciones;
     }
 
     public String getAlias() {
@@ -295,12 +305,14 @@ public class UsuarioBean implements Serializable {
     }
     
     public String doIrAlPerfil(){
+        this.listaInvitaciones = this.invitacionFacade.findByUsuario(this.usuarioActual);
         return "perfil";
     }
     
     public String doVolverDePerfilAListaProyectos(){
         this.mensajePerfil = null;
         this.mensajeInvitacion = null;
+        this.listaInvitaciones = null;
         return "listaProyectos";
     }
     
@@ -310,16 +322,15 @@ public class UsuarioBean implements Serializable {
         miembroNuevo.setIdProyecto(invitacion.getIdProyecto());
         miembroNuevo.setRol("Invitado");
         this.miembroFacade.create(miembroNuevo);
-        this.usuarioActual.getMiembroCollection().add(miembroNuevo);
         this.invitacionFacade.remove(invitacion);
-        this.usuarioActual.getInvitacionCollection().remove(invitacion);
+        this.listaInvitaciones.remove(invitacion);
         this.mensajeInvitacion = "Invitación aceptada al proyecto " + invitacion.getIdProyecto().getNombre();
         return "perfil";
     }
     
     public String doRechazarInvitacion(Invitacion invitacion){
         this.invitacionFacade.remove(invitacion);
-        this.usuarioActual.getInvitacionCollection().remove(invitacion);
+        this.listaInvitaciones.remove(invitacion);
         this.mensajeInvitacion = "Invitación rechazada al proyecto " + invitacion.getIdProyecto().getNombre();
         return "perfil";
     }

@@ -38,7 +38,7 @@
                               layout="pageDirection" >
             <f:selectItems value="#{proyectoBean.listaUsuariosAInvitar}" 
                            var="usuario"
-                           itemLabel="#{usuario.nombre}" 
+                           itemLabel="#{usuario.alias}" 
                            itemValue="#{usuario.idUsuario}" />
         </h:selectManyCheckbox> <br />
         <h:commandButton value="Invitar" action="#{proyectoBean.doInvitar()}" 
