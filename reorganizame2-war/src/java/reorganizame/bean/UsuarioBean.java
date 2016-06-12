@@ -42,18 +42,18 @@ public class UsuarioBean implements Serializable {
 
     @EJB
     private UsuarioFacade usuarioFacade;
-    
+
     @EJB
     private InvitacionFacade invitacionFacade;
 
     @EJB
     private MiembroFacade miembroFacade;
-        
+
     protected Usuario usuarioActual;
     protected Proyecto proyectoSeleccionado;
     protected List<Invitacion> listaInvitaciones;
-    protected String alias, contrasena, mensajeLogin, 
-            mensajeRecuperar, emailRecuperar, 
+    protected String alias, contrasena, mensajeLogin,
+            mensajeRecuperar, emailRecuperar,
             contrasenaAntiguaPerfil, contrasenaNuevaPerfil, contrasenaNueva2Perfil, mensajePerfil, mensajeInvitacion;
 
     /**
@@ -203,7 +203,7 @@ public class UsuarioBean implements Serializable {
         String siguientePagina;
         if (Util.isValidEmailAddress(this.emailRecuperar)) {
             Usuario usuario = this.usuarioFacade.findUserByEmail(this.emailRecuperar);
-            if (usuario!=null){
+            if (usuario != null) {
                 this.enviarMensaje(usuario);
                 siguientePagina = "passwordRecuperada";
             } else {
@@ -264,19 +264,19 @@ public class UsuarioBean implements Serializable {
     public String doVolverPrincipal() {
         return "listaProyectos";
     }
-    
-    public String doVolverDeRecuperacionPasswordAlLogin(){
+
+    public String doVolverDeRecuperacionPasswordAlLogin() {
         this.emailRecuperar = null;
         this.mensajeRecuperar = null;
         return "login";
     }
-    
-    public String doGuardarPerfil(){
+
+    public String doGuardarPerfil() {
         this.mensajePerfil = null;
-        if (!Util.isValidEmailAddress(this.usuarioActual.getCorreo()) || !(this.usuarioActual.getAlias().length()>=4)){
+        if (!Util.isValidEmailAddress(this.usuarioActual.getCorreo()) || !(this.usuarioActual.getAlias().length() >= 4)) {
             this.mensajePerfil = "Correo no valido o alias muy corto";
         } else {
-            if (!this.contrasenaAntiguaPerfil.equals("")){
+            if (!this.contrasenaAntiguaPerfil.equals("")) {
                 if (this.contrasenaNuevaPerfil.length() >= 4
                         && Util.hash(this.contrasenaAntiguaPerfil).equals(this.usuarioActual.getContrasena())
                         && this.contrasenaNuevaPerfil.equals(this.contrasenaNueva2Perfil)) {
@@ -285,15 +285,15 @@ public class UsuarioBean implements Serializable {
                     this.mensajePerfil = "Contraseña no cambiada: antigua incorrecta, nueva muy corta o no coincide repetida";
                 }
             }
-            if (this.mensajePerfil==null){
+            if (this.mensajePerfil == null) {
                 try {
                     this.usuarioFacade.edit(this.usuarioActual);
-                } catch (EJBException e){
+                } catch (EJBException e) {
                     this.mensajePerfil = "Nuevo alias o correo ya en uso";
                 }
             }
         }
-        if (this.mensajePerfil==null){
+        if (this.mensajePerfil == null) {
             this.mensajePerfil = "Cambios guardados con éxito";
         } else {
             this.usuarioActual = this.usuarioFacade.find(this.usuarioActual.getIdUsuario());
@@ -303,20 +303,20 @@ public class UsuarioBean implements Serializable {
         this.contrasenaNueva2Perfil = null;
         return "perfil";
     }
-    
-    public String doIrAlPerfil(){
+
+    public String doIrAlPerfil() {
         this.listaInvitaciones = this.invitacionFacade.findByUsuario(this.usuarioActual);
         return "perfil";
     }
-    
-    public String doVolverDePerfilAListaProyectos(){
+
+    public String doVolverDePerfilAListaProyectos() {
         this.mensajePerfil = null;
         this.mensajeInvitacion = null;
         this.listaInvitaciones = null;
         return "listaProyectos";
     }
-    
-    public String doAceptarInvitacion(Invitacion invitacion){
+
+    public String doAceptarInvitacion(Invitacion invitacion) {
         Miembro miembroNuevo = new Miembro();
         miembroNuevo.setIdUsuario(this.usuarioActual);
         miembroNuevo.setIdProyecto(invitacion.getIdProyecto());
@@ -327,15 +327,15 @@ public class UsuarioBean implements Serializable {
         this.mensajeInvitacion = "Invitación aceptada al proyecto " + invitacion.getIdProyecto().getNombre();
         return "perfil";
     }
-    
-    public String doRechazarInvitacion(Invitacion invitacion){
+
+    public String doRechazarInvitacion(Invitacion invitacion) {
         this.invitacionFacade.remove(invitacion);
         this.listaInvitaciones.remove(invitacion);
         this.mensajeInvitacion = "Invitación rechazada al proyecto " + invitacion.getIdProyecto().getNombre();
         return "perfil";
     }
-    
-    public String doLogout(){
+
+    public String doLogout() {
         this.usuarioActual = null;
         this.proyectoSeleccionado = null;
         return "login";

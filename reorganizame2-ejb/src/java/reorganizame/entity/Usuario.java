@@ -224,5 +224,5 @@ public class Usuario implements Serializable {
     public String toString() {
         return "reorganizame.entity.Usuario[ idUsuario=" + idUsuario + " ]";
     }
-    
+
 }

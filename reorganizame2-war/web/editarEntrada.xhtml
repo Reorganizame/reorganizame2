@@ -3,17 +3,20 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html">
     <h:head>
-        <title>Crear nuevo proyecto</title>
+        <title>Nueva entrada</title>
         <link data-require="bootstrap-css@3.3.6" data-semver="3.3.6" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" />
         <link rel="stylesheet" type="text/css" href="style.css" />
         <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
     </h:head>
     <h:body>
-        <h1>Nuevo proyecto</h1>
+        <h3>Nueva entrada</h3>
         <h:form>
-            Nombre: <h:inputText value="#{usuarioBean.proyectoSeleccionado.nombre}" /> <br/>
-            Descripción: <h:inputText value="#{usuarioBean.proyectoSeleccionado.descripcion}"/> <br/>
-            <h:commandButton value="Enviar" action="#{proyectoBean.doGuardar()}" />                  
+            T&iacute;tulo: <h:inputText value="#{entradaBean.entradaSeleccionada.titulo}"/><br/>
+            Contenido: <h:inputText value="#{entradaBean.entradaSeleccionada.contenido}"/><br/>
+            <h:commandButton value="Enviar" action="#{entradaBean.doGuardar()}"/><br/>
+        </h:form>
+        <h:form>
+            <h:commandLink value="Cancelar" action="#{entradaBean.doCancelar()}"/><br/>
         </h:form>
     </h:body>
 </html>

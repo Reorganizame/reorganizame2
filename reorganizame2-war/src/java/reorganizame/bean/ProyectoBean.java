@@ -36,16 +36,16 @@ public class ProyectoBean implements Serializable {
 
     @EJB
     private MiembroFacade mFacade;
-    
+
     @EJB
     private InvitacionFacade invitacionFacade;
-    
+
     @EJB
     private UsuarioFacade usuarioFacade;
 
     protected List<Proyecto> listaMisProyectos;
     protected List<Proyecto> listaProyectos;
-    
+
     protected List<Usuario> listaUsuariosAInvitar;
     protected List<Integer> listaIdUsuarioInvitado;
 
@@ -151,7 +151,7 @@ public class ProyectoBean implements Serializable {
         this.cargarUsuariosAInvitar();
         return "proyectoConcreto";
     }
-    
+
     private void cargarUsuariosAInvitar() {
         List<Usuario> listaNoMiembros = usuarioFacade.usuariosNoMiembrosDeUnProyecto(usuarioBean.getProyectoSeleccionado().getIdProyecto());
         List<Integer> listaIdNoMiembros = new ArrayList<>();

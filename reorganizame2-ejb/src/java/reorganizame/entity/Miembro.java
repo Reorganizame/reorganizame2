@@ -112,5 +112,5 @@ public class Miembro implements Serializable {
     public String toString() {
         return "reorganizame.entity.Miembro[ idMiembro=" + idMiembro + " ]";
     }
-    
+
 }

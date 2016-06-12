@@ -170,5 +170,5 @@ public class Tarea implements Serializable {
     public String toString() {
         return "reorganizame.entity.Tarea[ idTarea=" + idTarea + " ]";
     }
-    
+
 }

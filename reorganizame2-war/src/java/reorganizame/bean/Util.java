@@ -7,9 +7,6 @@ package reorganizame.bean;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
@@ -44,24 +41,6 @@ public class Util {
             result = false;
         }
         return result;
-    }
-
-    public static Date fechaDesdeString(String stringDeFecha) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        Date fechaResultado;
-        try {
-            fechaResultado = simpleDateFormat.parse(stringDeFecha);
-        } catch (ParseException ex) {
-            fechaResultado = null;
-        }
-        return fechaResultado;
-    }
-
-    public static String stringDesdeFecha(Date fecha) {
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-        String stringDeFecha;
-        stringDeFecha = simpleDateFormat.format(fecha);
-        return stringDeFecha;
     }
 
 }

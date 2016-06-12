@@ -184,5 +184,5 @@ public class Proyecto implements Serializable {
     public String toString() {
         return "reorganizame.entity.Proyecto[ idProyecto=" + idProyecto + " ]";
     }
-    
+
 }

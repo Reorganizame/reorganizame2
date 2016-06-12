@@ -99,5 +99,5 @@ public class Invitacion implements Serializable {
     public String toString() {
         return "reorganizame.entity.Invitacion[ idInvitacion=" + idInvitacion + " ]";
     }
-    
+
 }

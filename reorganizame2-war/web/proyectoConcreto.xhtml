@@ -49,6 +49,33 @@
         <h:commandButton value="Invitar" action="#{proyectoBean.doInvitar()}" >
             <f:ajax execute="@form" render="@form" />
         </h:commandButton>
+    </h:form>
+    <h:form>
+        <h3> Entradas </h3>
+        #{entradaBean.init()}
+        <h:dataTable value="#{entradaBean.listaMostradas}" var="entrada">
+            <h:column>
+                <f:facet name="header"> 10 primeras entradas </f:facet>
+                <div class="entrada">
+                    <div class="autorfecha">
+                        #{entrada.creador.alias} <br />
+                        #{entradaBean.fechaDeEntrada(entrada)} <br />
+                        <h:commandLink value="Editar" action="#{entradaBean.doEditar(entrada)}" 
+                                       rendered="#{usuarioBean.usuarioActual.idUsuario.equals(entrada.creador.idUsuario)}" /> &nbsp;
+                        <h:commandLink value="Borrar" action="#{entradaBean.doBorrar(entrada)}"
+                                       rendered="#{usuarioBean.usuarioActual.idUsuario.equals(entrada.creador.idUsuario)}" >
+                            <f:ajax render="@form" />
+                        </h:commandLink>
+                    </div>
+                    <div class="titulocontenido">
+                        <b> #{entrada.titulo} </b> <br />
+                        #{entrada.contenido}
+                    </div>
+                </div>
+            </h:column>
+        </h:dataTable>
+        <h:commandLink value="A&ntilde;adir" action="#{entradaBean.doNuevo()}"/><br/>
+        <h:commandLink value="Ver m&aacute;s" action="#{entradaBean.doCargarMas()}"/>
     </h:form> <br />
     <h:form>
         <h:commandLink value="Volver" action="#{usuarioBean.doVolverPrincipal()}" /> <br/>

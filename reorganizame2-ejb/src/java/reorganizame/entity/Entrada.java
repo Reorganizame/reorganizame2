@@ -159,5 +159,5 @@ public class Entrada implements Serializable {
     public String toString() {
         return "reorganizame.entity.Entrada[ idEntrada=" + idEntrada + " ]";
     }
-    
+
 }

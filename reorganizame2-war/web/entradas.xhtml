@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title> Reorganizame - Entradas </title>
+        <link data-require="bootstrap-css@3.3.6" data-semver="3.3.6" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
+    </h:head>
+    <h:body>
+        <h1> Entradas </h1>
+        <h:form>
+            <h:dataTable value="#{entradaBean.listaEntradas}" var="entrada">
+                <h:column>
+                    <f:facet name="header"> Todas las entradas </f:facet>
+                    <div class="entrada">
+                        <div class="autorfecha">
+                            #{entrada.creador.alias} <br />
+                            #{entradaBean.fechaDeEntrada(entrada)} <br />
+                            <h:commandLink value="Editar" action="#{entradaBean.doEditar(entrada)}" 
+                                           rendered="#{usuarioBean.usuarioActual.idUsuario.equals(entrada.creador.idUsuario)}" /> &nbsp;
+                            <h:commandLink value="Borrar" action="#{entradaBean.doBorrar(entrada)}"
+                                           rendered="#{usuarioBean.usuarioActual.idUsuario.equals(entrada.creador.idUsuario)}" >
+                                <f:ajax render="@form" />
+                            </h:commandLink>
+                        </div>
+                        <div class="titulocontenido">
+                            <b> #{entrada.titulo} </b> <br />
+                            #{entrada.contenido}
+                        </div>
+                    </div>
+                </h:column>
+            </h:dataTable>
+        </h:form>
+        <h:form>
+            <h:commandLink value="Volver" action="#{entradaBean.doCancelar()}" />
+        </h:form>
+    </h:body>
+</html>
+
