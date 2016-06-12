@@ -26,6 +26,7 @@
         </h:form>
         <h:form>
             <h2> Invitaciones pendientes: </h2>
+            #{usuarioBean.mensajeInvitacion}
             <h:dataTable value="#{usuarioBean.usuarioActual.invitacionCollection}" var="invitacion" border="1">
                 <h:column>
                     <f:facet name="header"> Proyecto </f:facet>

@@ -148,6 +148,14 @@ public class UsuarioBean implements Serializable {
         this.mensajePerfil = mensajePerfil;
     }
 
+    public String getMensajeInvitacion() {
+        return mensajeInvitacion;
+    }
+
+    public void setMensajeInvitacion(String mensajeInvitacion) {
+        this.mensajeInvitacion = mensajeInvitacion;
+    }
+
     public String doLogin() {
         String paginaReturn;
         Usuario usuario = this.usuarioFacade.findUsuarioByAlias(this.alias);
