@@ -68,4 +68,14 @@ public class UsuarioFacade extends AbstractFacade<Usuario> {
          */
         return consulta.getResultList();
     }
+    
+    public List<Usuario> usuariosSinInvitacionAUnProyecto (List<Integer> listaIdUsuarios, int idProyecto){
+        Query consulta;
+        consulta = this.em.createQuery("SELECT u FROM Usuario u WHERE u.idUsuario IN :listaIdUsuarios AND"
+                + " u.idUsuario NOT IN (SELECT i.idUsuario.idUsuario FROM Invitacion i WHERE i.idProyecto.idProyecto=:idProyecto)");
+        consulta.setParameter("listaIdUsuarios", listaIdUsuarios);
+        consulta.setParameter("idProyecto", idProyecto);
+        return (List<Usuario>)consulta.getResultList();
+    }
+    
 }

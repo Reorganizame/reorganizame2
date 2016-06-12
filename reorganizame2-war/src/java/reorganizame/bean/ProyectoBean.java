@@ -5,35 +5,49 @@
  */
 package reorganizame.bean;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.enterprise.context.SessionScoped;
 import javax.inject.Named;
-import javax.enterprise.context.Dependent;
 import javax.inject.Inject;
+import reorganizame.ejb.InvitacionFacade;
 import reorganizame.ejb.MiembroFacade;
 import reorganizame.ejb.ProyectoFacade;
+import reorganizame.ejb.UsuarioFacade;
+import reorganizame.entity.Invitacion;
 import reorganizame.entity.Miembro;
 import reorganizame.entity.Proyecto;
+import reorganizame.entity.Usuario;
 
 /**
  *
  * @author alumno
  */
 @Named(value = "proyectoBean")
-@Dependent
-public class ProyectoBean {
+@SessionScoped
+public class ProyectoBean implements Serializable {
 
     @EJB
     private ProyectoFacade pFacade;
 
     @EJB
     private MiembroFacade mFacade;
+    
+    @EJB
+    private InvitacionFacade invitacionFacade;
+    
+    @EJB
+    private UsuarioFacade usuarioFacade;
 
     protected List<Proyecto> listaMisProyectos;
     protected List<Proyecto> listaProyectos;
+    
+    protected List<Usuario> listaUsuariosAInvitar;
+    protected List<Integer> listaIdUsuarioInvitado;
 
     @Inject
     private UsuarioBean usuarioBean;
@@ -73,6 +87,22 @@ public class ProyectoBean {
         this.listaProyectos = listaProyectos;
     }
 
+    public List<Usuario> getListaUsuariosAInvitar() {
+        return listaUsuariosAInvitar;
+    }
+
+    public void setListaUsuariosAInvitar(List<Usuario> listaUsuariosAInvitar) {
+        this.listaUsuariosAInvitar = listaUsuariosAInvitar;
+    }
+
+    public List<Integer> getListaIdUsuarioInvitado() {
+        return listaIdUsuarioInvitado;
+    }
+
+    public void setListaIdUsuarioInvitado(List<Integer> listaIdUsuarioInvitado) {
+        this.listaIdUsuarioInvitado = listaIdUsuarioInvitado;
+    }
+
     public String doNuevo() {
         this.reset();
         return "crearNuevoProyecto";
@@ -103,7 +133,33 @@ public class ProyectoBean {
 
     public String doAcceder(Proyecto p) {
         usuarioBean.setProyectoSeleccionado(p); //usuario
+        listaUsuariosAInvitar = new ArrayList<>();
+        listaIdUsuarioInvitado = new ArrayList<>();
+
+        cargarUsuariosAInvitar();
+
         return "proyectoConcreto";
+    }
+
+    public String doInvitar() {
+        for (int idUsuario : listaIdUsuarioInvitado) {
+            Invitacion nuevaInvitacion = new Invitacion(0);
+            nuevaInvitacion.setIdUsuario(usuarioFacade.find(idUsuario));
+            nuevaInvitacion.setIdProyecto(usuarioBean.getProyectoSeleccionado());
+            invitacionFacade.create(nuevaInvitacion);
+        }
+        this.cargarUsuariosAInvitar();
+        return "proyectoConcreto";
+    }
+    
+    private void cargarUsuariosAInvitar() {
+        List<Usuario> listaNoMiembros = usuarioFacade.usuariosNoMiembrosDeUnProyecto(usuarioBean.getProyectoSeleccionado().getIdProyecto());
+        List<Integer> listaIdNoMiembros = new ArrayList<>();
+        for (Usuario u : listaNoMiembros) {
+            listaIdNoMiembros.add(u.getIdUsuario());
+        }
+        listaUsuariosAInvitar = usuarioFacade.usuariosSinInvitacionAUnProyecto(listaIdNoMiembros, usuarioBean.getProyectoSeleccionado().getIdProyecto());
+        this.listaIdUsuarioInvitado = new ArrayList<>();
     }
 
 }

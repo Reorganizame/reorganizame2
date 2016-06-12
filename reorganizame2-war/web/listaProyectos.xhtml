@@ -12,6 +12,7 @@
             <h:commandButton value="Salir" action="#{usuarioBean.doLogout()}" />
         </h:form>
         <h1>Mis Proyectos</h1>
+        #{proyectoBean.init()}
         <h:form>
             <h:dataTable value="#{proyectoBean.listaMisProyectos}" var="proyecto" >
                 <h:column>

@@ -30,6 +30,23 @@
         </h:dataTable>
         <h:commandLink value="Ver más" action="#{tareaBean.doCargarTareas()}" /> <br />
         <h:commandLink value="Nueva tarea" action="#{tareaBean.doNuevaTarea()}" /> <br/>
-        <h:commandButton value="Volver" action="#{usuarioBean.doVolverPrincipal()}" /> <br/>
+    </h:form>
+    <h:form>
+        <h3> Invitar usuarios al proyecto </h3>
+        <h:selectManyCheckbox id="listbox" value="#{proyectoBean.listaIdUsuarioInvitado}" 
+                              converter="javax.faces.Integer" 
+                              layout="pageDirection" >
+            <f:selectItems value="#{proyectoBean.listaUsuariosAInvitar}" 
+                           var="usuario"
+                           itemLabel="#{usuario.nombre}" 
+                           itemValue="#{usuario.idUsuario}" />
+        </h:selectManyCheckbox> <br />
+        <h:commandButton value="Invitar" action="#{proyectoBean.doInvitar()}" 
+                         disabled="#{!usuarioBean.usuarioActual.idUsuario.equals(usuarioBean.proyectoSeleccionado.lider.idUsuario)}">
+            <f:ajax execute="@form" render="@form" />
+        </h:commandButton>
+    </h:form>
+    <h:form>
+        <h:commandLink value="Volver" action="#{usuarioBean.doVolverPrincipal()}" /> <br/>
     </h:form>
 </html>
