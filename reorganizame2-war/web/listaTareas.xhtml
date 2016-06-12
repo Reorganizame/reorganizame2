@@ -6,6 +6,9 @@
       xmlns:pr="http://xmlns.jcp.org/jsf/passthrough">
     <h:head>
         <title>Reorganizame - Lista de Tareas</title>
+        <link data-require="bootstrap-css@3.3.6" data-semver="3.3.6" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
     </h:head>
     <h:body>
         <h2>Lista de Tareas </h2>
@@ -38,14 +41,18 @@
                     #{tarea.categoria.nombre}
                 </h:column>
                 <h:column>
-                    <f:facet name="header">    
+                    <f:facet name="header">
+                        Editar
                     </f:facet>
                     <h:commandLink value="Editar" action="#{tareaBean.doEditar(tarea)}" />
                 </h:column>
                 <h:column>
                     <f:facet name="header">
+                        Borrar
                     </f:facet>
-                    <h:commandLink value="Borrar" action="#{tareaBean.doBorrar(tarea)}" />
+                    <h:commandLink value="Borrar" action="#{tareaBean.doBorrar(tarea)}" > 
+                        <f:ajax render="@form" />
+                    </h:commandLink>
                 </h:column>
             </h:dataTable>
             <h:commandButton value="Volver" action="#{tareaBean.doVolver()}" />

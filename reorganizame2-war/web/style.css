@@ -1,0 +1,34 @@
+body {
+	background: #f7f7f7;
+	padding-top: 2%;
+	padding-left: 10%;
+	padding-right: 10%;
+}
+
+table {
+	border-collapse: collapse;
+	width: 80%;
+	margin: 2% auto 2% auto;
+}
+
+table, th, td {
+	border: 1px solid black;
+}
+
+th, td {
+	padding: 4px;
+}
+
+th {
+	background-color: #6666ff;
+	color: white;
+	text-align: center;
+}
+
+td {
+	text-align: left;
+}
+
+input {
+	margin: 2px;
+}

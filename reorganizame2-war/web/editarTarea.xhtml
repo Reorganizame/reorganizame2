@@ -6,15 +6,18 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Reorganizame - Editar Tarea</title>
+        <link data-require="bootstrap-css@3.3.6" data-semver="3.3.6" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.css" />
+        <link rel="stylesheet" type="text/css" href="style.css" />
+        <meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;" />
     </h:head>
     <h:body>
         <h2>Edici&oacute;n de Tarea</h2>
         <h:form>
             T&iacute;tulo: <h:inputText value="#{tareaBean.tareaSeleccionada.nombre}" /> <br/>
             Descripci&oacute;n: <h:inputText value="#{tareaBean.tareaSeleccionada.descripcion}"/> <br/>
-            Fecha de inicio: <h:inputText  pt:type="date" value="#{tareaBean.tareaSeleccionada.fechaInicio}">
+            Fecha de inicio: <h:inputText id="FechaInicio" pt:type="date" value="#{tareaBean.tareaSeleccionada.fechaInicio}">
                 <f:convertDateTime type="date" pattern="yyyy-MM-dd" />
-            </h:inputText> <br />
+            </h:inputText> &nbsp; <h:message for="FechaInicio" style="color:red;" /> <br />
             Categor&iacute;a:<h:selectOneMenu value="#{tareaBean.idCategoriaSeleccionada}">
                 <f:selectItems value="#{tareaBean.listaCategorias}"
                                var="categoria"
